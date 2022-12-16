@@ -1,6 +1,9 @@
 set -u
-ORIGINAL_BRANCH=$1
-UPDATE_FILE=$2
+ORIGINAL_BRANCH=main
+# --proto-pathをカンマ区切りで
+UPDATE_PROTO_PATH=proto/hoge,proto/fuga
+# breaking changeを検出したいファイルをカンマ区切りで
+UPDATE_FILE=proto/hoge/hoge.proto,proto/fuga/fuga.proto
 
 # pip install git+https://github.com/googleapis/proto-breaking-change-detector.git
 
@@ -17,7 +20,7 @@ ORIGINAL_FILE=${TMP_DIR}/${UPDATE_FILE}
 
 PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python proto-breaking-change-detector \
     --original_api_definition_dirs=$(dirname ${ORIGINAL_FILE}) \
-    --update_api_definition_dirs=$(dirname ${UPDATE_FILE}) \
+    --update_api_definition_dirs=$(UPDATE_PROTO_PATH) \
     --original_proto_files=${ORIGINAL_FILE} \
     --update_proto_files=${UPDATE_FILE} \
     --human_readable_message

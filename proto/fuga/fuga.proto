@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+import "hoge.proto";
+
+message Fuga {
+    int64 id = 1;
+    Hoge hoge = 2;
+}
